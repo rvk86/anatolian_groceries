@@ -20,7 +20,7 @@
 
 <div class="container">
 
-    <h1>Benim mesajlar</h1>
+    <h1>Anadolu Bakkaliye</h1>
 
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
@@ -46,7 +46,8 @@
                 </button>
             </h3>
 
-            <div class="row availableProducts">
+            <div class="row">
+                <div class="availableProducts">
                 <script id="availableProductCard" type="x-handlebars-template">
 
                     {{#each this}}
@@ -71,11 +72,9 @@
                     {{/each}}
 
                 </script>
+                </div>
 
-            </div>
-
-            <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div id="newProductCard" class="card card-block">
                         <h4 class="card-title"><i class="fa fa-pencil" aria-hidden="true"></i> Yeni ürün</h4>
                         <form id="newProductForm">
@@ -88,6 +87,9 @@
                     </div>
                 </div>
             </div>
+
+            <!-- <div class="row"> -->
+            <!-- </div> -->
 
         </div>
         <div class="tab-pane active" id="list" role="tabpanel">

@@ -13,6 +13,10 @@ var products = {
             name:"Elma",
             image:"assets/images/apples.jpg",
             count: 0 },
+        'dates': {
+            name:"Tarih",
+            image:"assets/images/dates.jpg",
+            count: 0 },
         'grapes': {
             name:"Üzum",
             image:"assets/images/grapes.jpg",

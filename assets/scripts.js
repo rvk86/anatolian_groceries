@@ -27,7 +27,7 @@ $( document ).ready(function() {
     });
 
 
-    $(document).on('click', '.countItem', function() {
+    $(document).on('click', '.countItem', function(e) {
 
         e.preventDefault();
         var key = $(this).parents('.card').attr('id');
@@ -42,7 +42,7 @@ $( document ).ready(function() {
     });
 
 
-    $(document).on('click', '.emptyList', function() {
+    $(document).on('click', '.emptyList', function(e) {
 
         e.preventDefault();
         products.empty();
@@ -53,7 +53,7 @@ $( document ).ready(function() {
     });
 
 
-    $(document).on('click', '.resetProducts', function() {
+    $(document).on('click', '.resetProducts', function(e) {
 
         e.preventDefault();
         products.reset();
