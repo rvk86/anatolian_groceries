@@ -1,7 +1,7 @@
 function setAvailableProducts() {
 
     if(!products.list()) {
-        products.set(product.starterProducts);
+        products.set(products.starterProducts);
     }
 
     var availableProductCard = $("#availableProductCard").html();
