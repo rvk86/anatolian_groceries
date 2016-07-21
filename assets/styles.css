@@ -1,0 +1,12 @@
+html {
+    overflow-y: scroll;
+}
+
+img {
+    max-width: 100%;
+}
+
+h1, h2, h3, h4, h5 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}

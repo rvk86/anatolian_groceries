@@ -1,0 +1,23 @@
+{
+  "name": "groceries",
+  "description": "A simple grocery list app for people in rural Turkey",
+  "main": "",
+  "authors": [
+    "Ralph van Krimpen"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.2",
+    "handlebars": "^4.0.5",
+    "font-awesome": "^4.6.3"
+  }
+}
