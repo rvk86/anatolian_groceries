@@ -16,19 +16,31 @@
     <![endif]-->
 
 </head>
-<body ng-app="app" ng-controller="MainController">
+<body ng-app="app" ng-controller="MainController" class="ng-cloak">
 
 <div class="container">
     <h1>Anadolu Bakkaliye</h1>
 
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#items" role="tab">
+            <a class="nav-link"
+                ng-init="tab1 = 'items'"
+                ng-class="{active: activeTab===tab1}"
+                ng-href="'#' + tab1"
+                ng-click="activeTab = tab1"
+                data-toggle="tab"
+                role="tab">
                 <i class="fa fa-bars" aria-hidden="true"></i> Tüm mevcut ürünler
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#list" role="tab">
+            <a class="nav-link"
+                ng-init="tab2 = 'list'"
+                ng-class="{active: activeTab===tab2}"
+                ng-href="'#' + tab2"
+                ng-click="activeTab = tab2"
+                data-toggle="tab"
+                role="tab">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i> Listeniz
                 <span class="label label-primary itemCount" ng-bind='(products | filter:{count: "!0"}).length'></span>
             </a>
@@ -37,7 +49,7 @@
 
 
     <div class="tab-content">
-        <div class="tab-pane" id="items" role="tabpanel">
+        <div class="tab-pane" ng-class="{active: activeTab===tab1}" ng-attr-id="tab1" role="tabpanel">
 
             <h3>Tüm mevcut ürünler
                 <button class="btn btn-danger btn-sm" ng-click="resetProducts()">
@@ -47,8 +59,8 @@
 
             <div class="row">
                 <div class="availableProducts">
-                    <div class="col-sm-3 availableProductCardWrapper" ng-repeat="product in products">
-                        <div id="{{product.key}}" class="card">
+                    <div class="col-sm-3 availableProductCardWrapper" ng-repeat="product in products track by $index">
+                        <div class="card">
                             <img class="card-img-top" ng-src="{{product.image}}" alt="Card image cap">
                             <div class="card-block">
                                 <h4 class="card-title">
@@ -65,9 +77,9 @@
                 </div>
 
                 <div class="col-sm-3">
-                    <div id="newProductCard" class="card card-block">
+                    <div class="card card-block">
                         <h4 class="card-title"><i class="fa fa-pencil" aria-hidden="true"></i> Yeni ürün</h4>
-                        <form id="newProductForm">
+                        <form>
                             <fieldset class="form-group">
                                 <label class="sr-only" for="item">Yeni öğe</label>
                                 <input type="text" class="form-control" placeholder="Yeni öğe" ng-model="newProductName">
@@ -78,11 +90,8 @@
                 </div>
             </div>
 
-            <!-- <div class="row"> -->
-            <!-- </div> -->
-
         </div>
-        <div class="tab-pane active" id="list" role="tabpanel">
+        <div class="tab-pane" ng-class="{active: activeTab===tab2}" ng-attr-id="tab2" role="tabpanel">
 
             <h3>Listeniz
                 <button class="btn btn-danger btn-sm" ng-click="emptyProducts()">
@@ -91,7 +100,7 @@
             </h3>
 
             <div class="row productList">
-                <div class="col-sm-3 productCardWrapper" ng-repeat='product in (products | filter:{count: "!0"})'>
+                <div class="col-sm-3 productCardWrapper" ng-repeat='product in (products | filter:{count: "!0"}) track by $index'>
                     <div class="card">
                         <img class="card-img-top" ng-src="{{product.image}}" alt="Card image cap">
                         <div class="card-block">
@@ -106,8 +115,7 @@
             </div>
 
             <hr/>
-            <button type="submit" class="btn btn-success switchTabs"
-                    data-tab="items">
+            <button data-toggle="tab" class="btn btn-success" ng-click="activeTab = tab1">
                 <i class="fa fa-cart-plus" aria-hidden="true"></i> Ürünü ekle
             </button>
 
@@ -120,6 +128,6 @@
 <script src="bower_components/bootstrap/js/dist/util.js"></script>
 <script src="bower_components/bootstrap/js/dist/tab.js"></script>
 <script src="bower_components/angular/angular.js"></script>
-<script src="assets/templating.js"></script>
+<script src="assets/main-controller.js"></script>
 </body>
 </html>

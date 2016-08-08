@@ -4,9 +4,12 @@ angular.module('app')
 // .value('selectedCount', )
 .controller('MainController', function($scope, filterFilter) {
 
+    $scope.storageKey = 'groceries';
+    $scope.activeTab = 'list';
+
     var init = function() {
 
-        var stored = JSON.parse(localStorage.getItem(this.storageKey));
+        var stored = JSON.parse(localStorage.getItem($scope.storageKey));
 
         if(stored) {
             $scope.products = stored;
@@ -59,7 +62,7 @@ angular.module('app')
 
     $scope.setProducts = function() {
 
-        localStorage.setItem(this.storageKey, JSON.stringify($scope.products));
+        localStorage.setItem($scope.storageKey, JSON.stringify($scope.products));
         return $scope.products;
 
     };
@@ -76,7 +79,7 @@ angular.module('app')
 
     $scope.resetProducts = function() {
 
-        localStorage.removeItem(this.storageKey);
+        localStorage.removeItem($scope.storageKey);
         init();
 
     };
