@@ -16,10 +16,9 @@
     <![endif]-->
 
 </head>
-<body>
+<body ng-app="app" ng-controller="MainController">
 
 <div class="container">
-
     <h1>Anadolu Bakkaliye</h1>
 
     <ul class="nav nav-tabs" role="tablist">
@@ -31,7 +30,7 @@
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#list" role="tab">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i> Listeniz
-                <span class="label label-primary itemCount"></span>
+                <span class="label label-primary itemCount" ng-bind='(products | filter:{count: "!0"}).length'></span>
             </a>
         </li>
     </ul>
@@ -41,37 +40,28 @@
         <div class="tab-pane" id="items" role="tabpanel">
 
             <h3>Tüm mevcut ürünler
-                <button class="btn btn-danger btn-sm resetProducts">
+                <button class="btn btn-danger btn-sm" ng-click="resetProducts()">
                     <i class="fa fa-times" aria-hidden="true"></i> Ayarlamak
                 </button>
             </h3>
 
             <div class="row">
                 <div class="availableProducts">
-                <script id="availableProductCard" type="x-handlebars-template">
-
-                    {{#each this}}
-                        <div class="col-sm-3 availableProductCardWrapper">
-                            <div id="{{@key}}" class="card">
-                                <img class="card-img-top" src="{{image}}" alt="Card image cap">
-                                <div class="card-block">
-                                    <h4 class="card-title">
-                                        {{name}}
-
-                                    </h4>
-                                    <div class="input-group">
-                                    <div class="input-group-addon btn btn-primary countItem"
-                                         data-count="-1">-</div>
-                                    <input type="text" class="form-control productCount" value={{count}}>
-                                    <div class="input-group-addon btn btn-primary countItem"
-                                         data-count="1">+</div>
-                                    </div>
+                    <div class="col-sm-3 availableProductCardWrapper" ng-repeat="product in products">
+                        <div id="{{product.key}}" class="card">
+                            <img class="card-img-top" ng-src="{{product.image}}" alt="Card image cap">
+                            <div class="card-block">
+                                <h4 class="card-title">
+                                    {{product.name}}
+                                </h4>
+                                <div class="input-group">
+                                <div class="input-group-addon btn btn-primary" ng-click="addCount(product, -1)">-</div>
+                                <input type="text" class="form-control productCount" value={{product.count}}>
+                                <div class="input-group-addon btn btn-primary" ng-click="addCount(product, 1)">+</div>
                                 </div>
                             </div>
                         </div>
-                    {{/each}}
-
-                </script>
+                    </div>
                 </div>
 
                 <div class="col-sm-3">
@@ -80,9 +70,9 @@
                         <form id="newProductForm">
                             <fieldset class="form-group">
                                 <label class="sr-only" for="item">Yeni öğe</label>
-                                <input type="text" class="form-control" id="newProductName" placeholder="Yeni öğe">
+                                <input type="text" class="form-control" placeholder="Yeni öğe" ng-model="newProductName">
                             </fieldset>
-                            <button type="submit" class="btn btn-primary">Eklemek</button>
+                            <button type="submit" class="btn btn-primary" ng-click="addProduct(newProductName)">Eklemek</button>
                         </form>
                     </div>
                 </div>
@@ -95,31 +85,24 @@
         <div class="tab-pane active" id="list" role="tabpanel">
 
             <h3>Listeniz
-                <button class="btn btn-danger btn-sm emptyList">
+                <button class="btn btn-danger btn-sm" ng-click="emptyProducts()">
                     <i class="fa fa-times" aria-hidden="true"></i> Boşaltmak
                 </button>
             </h3>
 
             <div class="row productList">
-                <script id="productCard" type="x-handlebars-template">
+                <div class="col-sm-3 productCardWrapper" ng-repeat='product in (products | filter:{count: "!0"})'>
+                    <div class="card">
+                        <img class="card-img-top" ng-src="{{product.image}}" alt="Card image cap">
+                        <div class="card-block">
+                            <h4 class="card-title">{{product.name}} (x{{product.count}})</h4>
 
-                    {{#each this}}
-                        <div class="col-sm-3 productCardWrapper">
-                            <div id="{{@key}}" class="card">
-                                <img class="card-img-top" src="{{image}}" alt="Card image cap">
-                                <div class="card-block">
-                                    <h4 class="card-title">{{name}} (x{{count}})</h4>
-
-                                    <button class="btn btn-primary countItem"
-                                            data-count="-{{count}}">
-                                        <i class="fa fa-check-square" aria-hidden="true"></i> Tamam
-                                    </button>
-                                </div>
-                            </div>
+                            <button class="btn btn-primary" ng-click="addCount(product, -product.count)">
+                                <i class="fa fa-check-square" aria-hidden="true"></i> Tamam
+                            </button>
                         </div>
-                    {{/each}}
-
-                </script>
+                    </div>
+                </div>
             </div>
 
             <hr/>
@@ -136,9 +119,7 @@
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/js/dist/util.js"></script>
 <script src="bower_components/bootstrap/js/dist/tab.js"></script>
-<script src="bower_components/handlebars/handlebars.min.js"></script>
-<script src="assets/products.js"></script>
+<script src="bower_components/angular/angular.js"></script>
 <script src="assets/templating.js"></script>
-<script src="assets/scripts.js"></script>
 </body>
 </html>

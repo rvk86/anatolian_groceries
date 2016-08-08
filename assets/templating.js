@@ -1,23 +1,84 @@
-function setAvailableProducts() {
+angular.module('app', []);
 
-    if(!products.list()) {
-        products.set(products.starterProducts);
-    }
+angular.module('app')
+// .value('selectedCount', )
+.controller('MainController', function($scope, filterFilter) {
 
-    var availableProductCard = $("#availableProductCard").html();
-    availableProductCard = Handlebars.compile(availableProductCard);
+    var init = function() {
 
-    $('.availableProductCardWrapper').remove();
-    $(".availableProducts").append(availableProductCard(products.list()));
+        var stored = JSON.parse(localStorage.getItem(this.storageKey));
 
-};
+        if(stored) {
+            $scope.products = stored;
+        } else {
+            $scope.products = [
+                {
+                    name:"Muz",
+                    image:"assets/images/bananas.jpg",
+                    count: 0 },
+                {
+                    name:"Elma",
+                    image:"assets/images/apples.jpg",
+                    count: 0 },
+                {
+                    name:"Tarih",
+                    image:"assets/images/dates.jpg",
+                    count: 0 },
+                {
+                    name:"Üzum",
+                    image:"assets/images/grapes.jpg",
+                    count: 0 }
+            ];
+        }
 
-function setProductList() {
+    };
 
-    var productCard = $("#productCard").html();
-    productCard = Handlebars.compile(productCard);
+    init();
 
-    $('.productCardWrapper').remove();
-    $(".productList").append(productCard(products.selected()));
+    $scope.addCount = function(product, count) {
 
-};
+        if(product.count > 0 || count > 0) {
+            product.count = product.count + count;
+        }
+
+        $scope.setProducts();
+
+    };
+
+    $scope.addProduct = function(productName) {
+
+        $scope.products.push({
+            name: productName,
+            image: 'assets/images/placeholder.jpg',
+            count: 0
+        });
+
+        $scope.setProducts();
+
+    };
+
+    $scope.setProducts = function() {
+
+        localStorage.setItem(this.storageKey, JSON.stringify($scope.products));
+        return $scope.products;
+
+    };
+
+    $scope.emptyProducts = function() {
+
+        angular.forEach($scope.products, (p) =>{
+            p.count = 0;
+        });
+
+        $scope.setProducts();
+
+    };
+
+    $scope.resetProducts = function() {
+
+        localStorage.removeItem(this.storageKey);
+        init();
+
+    };
+
+});
