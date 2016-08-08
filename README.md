@@ -9,7 +9,7 @@ Small webapp to manage grocery list for people in rural areas.
 - Empty grocery list at once
 
 ## Technology
-A very minimal stack: jQuery, Bootstrap and Handlebars. Uses localStorage to save custom products and product lists.
+A very minimal stack: Angular, jQuery and Bootstrap. Uses localStorage to save custom products and product lists.
 
 
 ## Installation
@@ -17,4 +17,4 @@ A very minimal stack: jQuery, Bootstrap and Handlebars. Uses localStorage to sav
     bower install
 
 ## Editing available products
-in assets/products.js you can add products by adding keys to the starterProducts. Specify name, image and count: 0.
+in assets/main-controller.js you can add products by adding elements to the initial product array. Specify name, image and count: 0.
